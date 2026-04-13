@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Imposto sobre Bets 2026 | Calcule o IR dos seus ganhos</title>
+  <meta name="description" content="Calcule gratuitamente o Imposto de Renda sobre seus ganhos em apostas esportivas (bets) em 2026. Alíquota de 15% sobre ganhos acima de R$ 28.467,20. Atualizado com as regras da Receita Federal." />
+  <meta name="keywords" content="imposto bets 2026, IR apostas esportivas, calcular imposto ganhos apostas, declarar bets imposto de renda, DARF bets, ganhos bets tributação" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Simulador de Imposto sobre Bets 2026" />
+  <meta property="og:description" content="Calcule o IR sobre seus ganhos em apostas esportivas. Gratuito e atualizado 2026." />
+  <meta property="og:type" content="website" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulador de Imposto sobre Bets 2026",
+    "description": "Calculadora gratuita do Imposto de Renda sobre ganhos em apostas esportivas conforme Lei 14.790/2023",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a26;
+      --border: #2a2a3d;
+      --accent: #00e5a0;
+      --accent2: #ff4d6d;
+      --accent3: #ffd166;
+      --text: #f0f0f8;
+      --muted: #7a7a9a;
+      --radius: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* BG pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,229,160,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255,77,109,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* HEADER */
+    header {
+      padding: 52px 0 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,229,160,0.12);
+      border: 1px solid rgba(0,229,160,0.3);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 6vw, 46px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* FIELDS */
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .prefix {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 14px 16px 14px 44px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    select { padding-left: 16px; cursor: pointer; }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,229,160,0.12);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 520px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* TIPO PLATAFORMA */
+    .radio-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 400px) { .radio-group { grid-template-columns: 1fr; } }
+
+    .radio-card {
+      position: relative;
+    }
+
+    .radio-card input { display: none; }
+
+    .radio-card label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin: 0;
+    }
+
+    .radio-card label .rtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .radio-card label .rdesc {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .radio-card input:checked + label {
+      border-color: var(--accent);
+      background: rgba(0,229,160,0.06);
+    }
+
+    /* BTN */
+    .btn {
+      width: 100%;
+      background: var(--accent);
+      color: #050f0a;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 18px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 8px;
+    }
+
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    /* RESULT */
+    #result {
+      display: none;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-hero {
+      text-align: center;
+      padding: 36px 24px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+    }
+
+    .result-hero.isento::after { background: var(--accent); }
+    .result-hero.paga::after { background: var(--accent2); }
+
+    .result-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .result-value {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .result-value.green { color: var(--accent); }
+    .result-value.red   { color: var(--accent2); }
+
+    .result-status {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .breakdown {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .breakdown-row:last-child { border-bottom: none; }
+
+    .breakdown-row .key { color: var(--muted); }
+    .breakdown-row .val { font-weight: 600; font-size: 15px; }
+    .breakdown-row .val.accent { color: var(--accent); }
+    .breakdown-row .val.red { color: var(--accent2); }
+    .breakdown-row .val.yellow { color: var(--accent3); }
+
+    /* INFO BOX */
+    .info-box {
+      background: rgba(255,209,102,0.07);
+      border: 1px solid rgba(255,209,102,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--accent3);
+      margin-bottom: 16px;
+    }
+
+    .info-box strong { font-weight: 600; }
+
+    /* DARF BOX */
+    .darf-box {
+      background: rgba(255,77,109,0.07);
+      border: 1px solid rgba(255,77,109,0.25);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .darf-box h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* RESET */
+    .btn-reset {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-reset:hover { border-color: var(--muted); color: var(--text); }
+
+    /* FAQ */
+    .faq { margin-top: 48px; }
+
+    .faq h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      padding: 18px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-q .arrow {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: transform 0.25s;
+    }
+
+    .faq-item.open .arrow { transform: rotate(180deg); }
+
+    .faq-a {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding-bottom: 18px;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="badge">✦ Atualizado 2026</div>
+    <h1>Simulador de <span>IR sobre Bets</span></h1>
+    <p class="subtitle">Calcule gratuitamente o Imposto de Renda sobre seus ganhos em apostas esportivas e jogos online conforme as regras da Receita Federal 2026.</p>
+  </header>
+
+  <!-- FORMULÁRIO -->
+  <div class="card" id="form-card">
+    <div class="card-title">Seus dados de apostas</div>
+
+    <div class="field">
+      <label>Tipo de plataforma</label>
+      <div class="radio-group">
+        <div class="radio-card">
+          <input type="radio" name="plataforma" id="nacional" value="nacional" checked />
+          <label for="nacional">
+            <span class="rtitle">🇧🇷 Nacional (.bet.br)</span>
+            <span class="rdesc">Imposto retido na fonte</span>
+          </label>
+        </div>
+        <div class="radio-card">
+          <input type="radio" name="plataforma" id="estrangeira" value="estrangeira" />
+          <label for="estrangeira">
+            <span class="rtitle">🌍 Estrangeira</span>
+            <span class="rdesc">Você recolhe via DARF</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="ganhos">Total de prêmios recebidos</label>
+        <div class="input-wrap">
+          <span class="prefix">R$</span>
+          <input type="text" id="ganhos" placeholder="0,00" inputmode="decimal" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="apostado">Total apostado (entradas)</label>
+        <div class="input-wrap">
+          <span class="prefix">R$</span>
+          <input type="text" id="apostado" placeholder="0,00" inputmode="decimal" />
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5;">
+      ℹ️ O ganho líquido = prêmios recebidos − total apostado. O imposto incide apenas sobre o valor que exceder R$ 28.467,20 de ganho líquido anual.
+    </p>
+
+    <button class="btn" onclick="calcular()">Calcular Imposto</button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="result">
+
+    <div class="result-hero" id="result-hero">
+      <div class="result-label">Imposto devido (IR 2026)</div>
+      <div class="result-value" id="result-ir">R$ 0,00</div>
+      <div class="result-status" id="result-status"></div>
+    </div>
+
+    <div class="breakdown">
+      <div class="breakdown-row">
+        <span class="key">Total de prêmios recebidos</span>
+        <span class="val" id="br-ganhos">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Total apostado (deduções)</span>
+        <span class="val" id="br-apostado">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Ganho líquido anual</span>
+        <span class="val accent" id="br-liquido">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Limite de isenção</span>
+        <span class="val">R$ 28.467,20</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Base de cálculo (excedente)</span>
+        <span class="val yellow" id="br-base">—</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Alíquota aplicada</span>
+        <span class="val">15%</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="key">Imposto a pagar</span>
+        <span class="val red" id="br-ir">—</span>
+      </div>
+    </div>
+
+    <div class="info-box" id="info-retencao"></div>
+    <div class="darf-box" id="darf-box" style="display:none;"></div>
+
+    <button class="btn-reset" onclick="resetar()">← Fazer novo cálculo</button>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Perguntas frequentes</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Preciso declarar ganhos com bets no IR 2026?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">Sim. Todo valor recebido em apostas deve ser declarado. Ganhos líquidos anuais abaixo de R$ 28.467,20 entram como Rendimentos Isentos e Não Tributáveis. Acima desse valor, devem ser declarados como Rendimentos Sujeitos à Tributação Exclusiva e o imposto de 15% é cobrado sobre o excedente.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        O que é o ComprovaBet?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">É o documento que as plataformas de apostas são obrigadas a fornecer até o último dia útil de fevereiro. Ele consolida todos os seus ganhos e perdas do ano anterior, sendo indispensável para calcular o imposto correto.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Qual a diferença entre plataforma nacional e estrangeira?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">Plataformas nacionais autorizadas (com domínio .bet.br) retêm o imposto na fonte automaticamente. Plataformas estrangeiras não têm essa obrigação, então cabe ao apostador calcular e pagar o imposto mensalmente via DARF (código 6313), até o último dia útil do mês seguinte ao recebimento.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Posso deduzir minhas perdas dos ganhos?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">Sim, dentro da mesma categoria de apostas. Por exemplo, perdas em apostas esportivas podem abater ganhos em apostas esportivas. Porém, não é permitido compensar perdas de uma categoria com ganhos de outra (ex.: perda em cassino virtual não abate ganho em apostas esportivas).</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Qual o prazo para pagar o DARF?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">O pagamento do DARF referente ao ano-calendário 2025 deve ser efetuado até o último dia útil de abril de 2026. Para apostas em plataformas estrangeiras, o recolhimento deve ser feito mensalmente, até o último dia útil do mês seguinte ao recebimento do prêmio.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        O que acontece se eu não declarar?
+        <span class="arrow">↓</span>
+      </button>
+      <div class="faq-a">A omissão gera multa de 75% sobre o imposto devido, podendo chegar a 150% em caso de fraude. Além disso, há cobrança de juros Selic e possível bloqueio do CPF, impedindo abertura de contas, financiamentos e outros serviços.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Esta calculadora tem caráter exclusivamente informativo e não substitui orientação de contador ou advogado tributário.</p>
+    <p>Base legal: Lei 14.790/2023 · Regras IR 2026 · Limite de isenção: R$ 28.467,20 · Alíquota: 15%</p>
+  </footer>
+
+</div>
+
+<script>
+  const ISENCAO = 28467.20;
+  const ALIQUOTA = 0.15;
+
+  function parseBRL(str) {
+    return parseFloat(str.replace(/\./g, '').replace(',', '.')) || 0;
+  }
+
+  function formatBRL(val) {
+    return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  // Máscara monetária
+  ['ganhos', 'apostado'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '');
+      if (!v) { this.value = ''; return; }
+      v = (parseInt(v) / 100).toFixed(2);
+      this.value = parseFloat(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    });
+  });
+
+  function calcular() {
+    const ganhos   = parseBRL(document.getElementById('ganhos').value);
+    const apostado = parseBRL(document.getElementById('apostado').value);
+    const tipo     = document.querySelector('input[name="plataforma"]:checked').value;
+
+    if (ganhos <= 0) {
+      alert('Informe o total de prêmios recebidos.');
+      return;
+    }
+
+    const liquido = Math.max(ganhos - apostado, 0);
+    const base    = Math.max(liquido - ISENCAO, 0);
+    const ir      = base * ALIQUOTA;
+    const isento  = base <= 0;
+
+    // Preenche breakdown
+    document.getElementById('br-ganhos').textContent   = formatBRL(ganhos);
+    document.getElementById('br-apostado').textContent = formatBRL(apostado);
+    document.getElementById('br-liquido').textContent  = formatBRL(liquido);
+    document.getElementById('br-base').textContent     = formatBRL(base);
+    document.getElementById('br-ir').textContent       = formatBRL(ir);
+
+    // Hero
+    const hero = document.getElementById('result-hero');
+    const irEl = document.getElementById('result-ir');
+    const statusEl = document.getElementById('result-status');
+
+    if (isento) {
+      hero.className = 'result-hero isento';
+      irEl.className = 'result-value green';
+      irEl.textContent = 'Isento';
+      statusEl.textContent = 'Seu ganho líquido está dentro do limite de isenção de ' + formatBRL(ISENCAO);
+    } else {
+      hero.className = 'result-hero paga';
+      irEl.className = 'result-value red';
+      irEl.textContent = formatBRL(ir);
+      statusEl.textContent = 'Sobre o excedente de ' + formatBRL(base) + ' — alíquota de 15%';
+    }
+
+    // Info retenção
+    const infoEl = document.getElementById('info-retencao');
+    if (tipo === 'nacional') {
+      infoEl.innerHTML = '<strong>🇧🇷 Plataforma nacional (.bet.br):</strong> O imposto é retido na fonte pela própria plataforma. Você precisa apenas informar os valores na sua declaração de IR 2026 na ficha de Rendimentos Sujeitos à Tributação Exclusiva.';
+    } else {
+      infoEl.innerHTML = '<strong>🌍 Plataforma estrangeira:</strong> Como a plataforma não recolhe na fonte, você é responsável pelo cálculo e pagamento mensal via DARF. Veja as instruções abaixo.';
+    }
+
+    // DARF box
+    const darfEl = document.getElementById('darf-box');
+    if (tipo === 'estrangeira' && !isento) {
+      darfEl.style.display = 'block';
+      darfEl.innerHTML = `
+        <h3>⚠️ Como pagar via DARF</h3>
+        <p><strong>Código DARF:</strong> 6313-01</p>
+        <p><strong>Prazo:</strong> Último dia útil do mês seguinte ao recebimento (ou até 30/04/2026 para o ano-calendário 2025).</p>
+        <p><strong>Valor calculado:</strong> ${formatBRL(ir)}</p>
+        <p style="margin-top:8px;color:var(--muted);">Acesse o Sicalc Web no site da Receita Federal para emitir o DARF. Parcelas a partir de R$ 200,00 podem ser parceladas em até 60x via e-CAC.</p>
+      `;
+    } else {
+      darfEl.style.display = 'none';
+    }
+
+    // Exibe resultado
+    document.getElementById('form-card').style.display = 'none';
+    const resultEl = document.getElementById('result');
+    resultEl.style.display = 'block';
+  }
+
+  function resetar() {
+    document.getElementById('ganhos').value = '';
+    document.getElementById('apostado').value = '';
+    document.getElementById('form-card').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
